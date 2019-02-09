@@ -1,5 +1,7 @@
 import React from 'react';
 import { render } from 'react-testing-library';
+import 'jest-dom/extend-expect'
+import RandomText from '../RandomText'
 
 test('Pass props to randomText and display a text', () => {
 
@@ -7,7 +9,7 @@ test('Pass props to randomText and display a text', () => {
     <RandomText text="Just a random text to make test fail"/>
   )
 
-  expect(getByTestId('test-text').toHaveTextContent(
+  expect(getByTestId('test-text')).toHaveTextContent(
     "Just a random text to make test fail"
-  ))
+  )
 })

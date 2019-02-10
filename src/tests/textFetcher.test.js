@@ -15,11 +15,12 @@ test('Pass props to randomText and display a text', () => {
 });
 
 test('TextFetcher fetches a random text and passes to RandomText as a prop to display it', () => {
-  const { getByText } = render(<TextFetcher />);
+  const { getByText, queryByText } = render(<TextFetcher />);
 
   expect(getByText('Please load some text first')).toBeInTheDOM();
 
   fireEvent.click(getByText('Fetch random text'));
 
   expect(queryByText('Please load some text first')).not.toBeInTheDOM();
+  expect(getByText('Processing...')).toBeInTheDOM();
 });

@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import RandomText from './RandomText';
 
 export default class TextFetcher extends React.Component {
   state = {
@@ -8,6 +10,14 @@ export default class TextFetcher extends React.Component {
 
   fetchText = async () => {
     this.setState({ processing: true });
+
+    const {
+      data: {
+        value: { randomText }
+      }
+    } = await axios.get('http://www.randomtext.me/api/');
+
+    this.setState({ processing: false, randomText });
   };
 
   render() {
@@ -19,6 +29,7 @@ export default class TextFetcher extends React.Component {
         </div>
         {processing && <div>Processing...</div>}
         <button onClick={this.fetchText}>Fetch random text</button>;
+        {randomText && !processing && <RandomText text={randomText} />}
       </React.Fragment>
     );
   }
